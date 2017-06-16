@@ -1,0 +1,140 @@
+﻿<Page
+    x:Class="PulseTrainHatMecanumRCT.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:PulseTrainHatMecanumRCT"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+    <Page.Resources>
+        <CollectionViewSource x:Name="DeviceListSource"/>
+    </Page.Resources>
+
+    <Grid Background="White" Height="768" VerticalAlignment="Top" HorizontalAlignment="Left" Width="1024">
+        <Image x:Name="Left_Dir" HorizontalAlignment="Left" Margin="23,411,0,0" Width="100" PointerPressed="Left_Dir_press" PointerReleased="Left_Dir_release" Source="Assets/Left.png" PointerExited="Left_Dir_Exit" Height="100" VerticalAlignment="Top"/>
+        <Image x:Name="Right_Dir" Margin="254,411,0,0" PointerPressed="Right_Dir_press" PointerReleased="Right_Dir_release" Source="Assets/Right.png" PointerExited="Right_Dir_Exit" HorizontalAlignment="Left" Width="100" Height="100" VerticalAlignment="Top"/>
+        <Image x:Name="Reverse_Dir" Margin="139,526,0,0" PointerPressed="Reverse_Dir_press" PointerReleased="Reverse_Dir_release" Source="Assets/Down.png" PointerExited="Reverse_Dir_Exit" HorizontalAlignment="Left" Width="100" RenderTransformOrigin="0.55,1.45" Height="100" VerticalAlignment="Top"/>
+        <Image x:Name="Forward_Dir" Margin="139,295,0,0" PointerPressed="Forward_Dir_press" PointerReleased="Forward_Dir_release" Source="Assets/Up.png" PointerExited="Forward_Dir_Exit" HorizontalAlignment="Left" Width="100" Height="100" VerticalAlignment="Top"/>
+        <Image x:Name="Rotate_CW" HorizontalAlignment="Left" Margin="227,164,0,0" Width="100" PointerPressed="Rotate_CW_press" PointerReleased="Rotate_CW_release" Source="Assets/cwU.png" Height="100" VerticalAlignment="Top" PointerExited="Rotate_CW_Exit" d:LayoutOverrides="HorizontalAlignment, VerticalAlignment"/>
+        <Image x:Name="Rotate_CCW" HorizontalAlignment="Left" Margin="56,164,0,0" Width="100" PointerPressed="Rotate_CCW_press" PointerReleased="Rotate_CCW_release" Source="Assets/CCWU.png" PointerExited="Rotate_CCW_Exit" Height="100" VerticalAlignment="Top" d:LayoutOverrides="HorizontalAlignment"/>
+
+        <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Height="51" Margin="105,5,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="723" FontFamily="Calibri" FontSize="30" Text="Pulse Train Hat Mecanum Bot RC Transmitter/Receiver"/>
+        <Button x:Name="comPortInput" Content="Connect" Click="comPortInput_Click" Margin="771,47,0,0" Width="94" Height="32" VerticalAlignment="Top" Background="#B296F50D"/>
+        <Button x:Name="closeDevice" Margin="771,84,0,0" Content="Disconnect" Click="closeDevice_Click" Width="94" Height="32" VerticalAlignment="Top" Background="#B2FB0F04"/>
+        <ListBox x:Name="ConnectDevices" ScrollViewer.HorizontalScrollMode="Enabled" ScrollViewer.HorizontalScrollBarVisibility="Visible" ItemsSource="{Binding Source={StaticResource DeviceListSource}}" Background="#FFDAD8D8" Margin="23,66,0,0" Height="43" Width="726" HorizontalAlignment="Left" VerticalAlignment="Top">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding Id}" />
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        <TextBox x:Name="sendText" Margin="194,725,0,0" Background="#FFA9F55D" Width="358" Height="32" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+        <TextBlock HorizontalAlignment="Left" VerticalAlignment="Top" Margin="153,738,0,0" Text="Write"/>
+
+
+        <TextBox x:Name="rcvdText" Margin="613,726,0,0" Background="#FFF98989" Width="358" Height="32" HorizontalAlignment="Left" VerticalAlignment="Top" IsReadOnly="True"/>
+        <TextBlock Text="Reply:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="569,736,0,0"/>
+        <TextBox
+            x:Name="status" TextWrapping="Wrap" IsReadOnly="True" Width="392" Height="24" HorizontalAlignment="Left" VerticalAlignment="Top" 
+            ScrollViewer.HorizontalScrollBarVisibility="Disabled" ScrollViewer.VerticalScrollBarVisibility="Auto" BorderBrush="White" Margin="616,674,0,0" Background="#FF89C1F9"/>
+        <Button x:Name="Firmware1" Content="Firmware" Click="Firmware_Click" Margin="890,640,0,0" VerticalAlignment="Top" Background="#B2F1F109" RenderTransformOrigin="0.409,-4.312" Height="32" HorizontalAlignment="Left" Width="94"/>
+        <TextBlock HorizontalAlignment="Left" Margin="866,435,0,0" RenderTransformOrigin="0.585,-1.95" Width="51" Text="Ramp Divide:" TextWrapping="Wrap" VerticalAlignment="Top"/>
+        <TextBox x:Name="Resolution" HorizontalAlignment="Left" Height="20" Margin="676,309,0,0" TextWrapping="Wrap" Text="0.0025" VerticalAlignment="Top" MinWidth="40" Width="64" MaxLength="1" Background="#FFF98989" IsReadOnly="True" d:LayoutOverrides="VerticalAlignment"/>
+        <TextBlock HorizontalAlignment="Left" VerticalAlignment="Top" Margin="585,301,0,0" RenderTransformOrigin="0.585,-1.95" TextWrapping="Wrap" Height="40" Width="85" Text="Calculated Resolution" d:LayoutOverrides="VerticalAlignment"/>
+        <TextBox x:Name="RampDivide" HorizontalAlignment="Left" Margin="920,444,0,0" TextWrapping="Wrap" Text="050" Width="64" Background="#FFA9F55D" Height="32" VerticalAlignment="Top"/>
+        <TextBlock HorizontalAlignment="Left" VerticalAlignment="Top" Margin="867,483,0,0" RenderTransformOrigin="0.585,-1.95" Width="47" Text="Ramp Pause:" TextWrapping="Wrap"/>
+        <TextBox x:Name="RampPause" HorizontalAlignment="Left" Height="32" Margin="920,492,0,0" TextWrapping="Wrap" Text="10" VerticalAlignment="Top" Width="64" Background="#FFA9F55D"/>
+        <TextBlock Text="Status:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="570,684,0,0"/>
+        <Button x:Name="Reset" Content="Reset" HorizontalAlignment="Left" Height="39" Margin="74,721,0,0" VerticalAlignment="Top" Width="66" Click="Reset_Click" Background="#99FF210B"/>
+        <TextBlock HorizontalAlignment="Left" VerticalAlignment="Top" Margin="23,718,0,0" RenderTransformOrigin="0.585,-1.95" Width="61" Text="Reset&#xA;PTHAT"/>
+        <TextBox x:Name="Travel_Speed" HorizontalAlignment="Left" Height="20" Margin="471,354,0,0" TextWrapping="Wrap" Text="4" VerticalAlignment="Top" Width="50" TextChanged="Travel_Speed_TextChanged" Background="#FFA9F55D"/>
+        <TextBox x:Name="PulsesPerRev" HorizontalAlignment="Left" Height="20" Margin="479,263,0,0" TextWrapping="Wrap" Text="1600" VerticalAlignment="Top" Width="49" Background="#FFA9F55D" TextChanged="PulsesPerRev_TextChanged" d:LayoutOverrides="VerticalAlignment"/>
+        <TextBox x:Name="HZresult" HorizontalAlignment="Left" Height="20" Margin="676,354,0,0" TextWrapping="Wrap" Text="006666.667" VerticalAlignment="Top" Width="99" Background="#FFF98989" IsReadOnly="True"/>
+        <TextBlock HorizontalAlignment="Left" VerticalAlignment="Top" Margin="540,366,0,0" Text="Km/h" TextWrapping="Wrap" Width="38"/>
+        <TextBlock HorizontalAlignment="Left" VerticalAlignment="Top" Margin="585,346,0,0" RenderTransformOrigin="0.032,4.45" TextWrapping="Wrap" Width="105" IsTextScaleFactorEnabled="False" Text="Travel Speed Result Hz"/>
+        <Image x:Name="PTHAT" HorizontalAlignment="Left" Height="56" Margin="13,5,0,0" VerticalAlignment="Top" Width="77" Source="Assets/PTHATlogo.jpg"/>
+        <TextBlock Text="http://www.pthat.com" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="833,18,0,0" FontWeight="Bold" FontStyle="Italic"/>
+        <Button x:Name="ToggleEnableLine" Content="Disable/Enable&#xA;Motors" HorizontalAlignment="Left" Height="51" Margin="861,529,0,0" VerticalAlignment="Top" Width="123" Background="#9996F50D" Click="ToggleEnableLine_Click"/>
+        <TextBlock x:Name="EnablepolarityLabel" HorizontalAlignment="Left" Margin="861.612,405.813,0,0" TextWrapping="Wrap" Width="49.69" RenderTransformOrigin="0.5,0.5" UseLayoutRounding="False" d:LayoutRounding="Auto" Text="Polarity" Height="24" VerticalAlignment="Top">
+            <TextBlock.RenderTransform>
+                <CompositeTransform SkewX="2.961" TranslateX="1.448"/>
+            </TextBlock.RenderTransform>
+        </TextBlock>
+        <TextBox x:Name="EnablePolarity" HorizontalAlignment="Left" Height="22" Margin="920,400,0,0" TextWrapping="Wrap" Text="1" Width="34" Background="#FFA9F55D" VerticalAlignment="Top"/>
+        <TextBlock HorizontalAlignment="Left" VerticalAlignment="Top" Margin="408,255,0,0" RenderTransformOrigin="0.585,-1.95" Width="78" Height="40" TextWrapping="Wrap" d:LayoutOverrides="HorizontalAlignment, VerticalAlignment">
+            <Run Text="Pulses Per "/>
+            <Run Text="Revolution"/>
+        </TextBlock>
+        <TextBlock HorizontalAlignment="Left" VerticalAlignment="Top" Margin="408,346,0,0" RenderTransformOrigin="0.032,4.45" TextWrapping="Wrap" Width="56" Height="40" Text="Travel Speed" d:LayoutOverrides="HorizontalAlignment"/>
+        <TextBox x:Name="PinX" HorizontalAlignment="Left" Height="20" Margin="464,164,0,0" TextWrapping="Wrap" Text="1" VerticalAlignment="Top" MinWidth="40" Width="64" MaxLength="1" Background="#FFA9F55D" d:LayoutOverrides="VerticalAlignment"/>
+        <TextBlock HorizontalAlignment="Left" VerticalAlignment="Top" Margin="393,156,0,0" RenderTransformOrigin="0.585,-1.95" TextWrapping="Wrap" Height="40" Width="71" d:LayoutOverrides="HorizontalAlignment, VerticalAlignment">
+            <Run Text="X "/>
+            <Run Text="Pin Direction"/>
+        </TextBlock>
+        <TextBlock HorizontalAlignment="Left" VerticalAlignment="Top" Margin="540,156,0,0" RenderTransformOrigin="0.585,-1.95" Height="40" Width="71" Text="Pin Y Direction" TextWrapping="Wrap" d:LayoutOverrides="VerticalAlignment"/>
+        <TextBox x:Name="PinY" HorizontalAlignment="Left" Height="20" Margin="616,164,0,0" TextWrapping="Wrap" Text="1" VerticalAlignment="Top" MinWidth="40" Width="64" MaxLength="1" Background="#FFA9F55D" d:LayoutOverrides="VerticalAlignment"/>
+        <TextBox x:Name="PinZ" HorizontalAlignment="Left" Height="20" Margin="755,164,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" MinWidth="40" Width="64" MaxLength="1" Background="#FFA9F55D" d:LayoutOverrides="VerticalAlignment"/>
+        <TextBlock HorizontalAlignment="Left" VerticalAlignment="Top" Margin="684,156,0,0" RenderTransformOrigin="0.585,-1.95" TextWrapping="Wrap" Height="40" Width="71" Text="Pin Z Direction" d:LayoutOverrides="VerticalAlignment"/>
+        <TextBlock HorizontalAlignment="Left" VerticalAlignment="Top" Margin="831,156,0,0" RenderTransformOrigin="0.585,-1.95" Height="40" Width="71" Text="Pin E Direction" TextWrapping="Wrap" d:LayoutOverrides="VerticalAlignment"/>
+        <TextBox x:Name="PinE" HorizontalAlignment="Left" Height="20" Margin="907,164,0,0" TextWrapping="Wrap" Text="0" VerticalAlignment="Top" MinWidth="40" Width="64" MaxLength="1" Background="#FFA9F55D" d:LayoutOverrides="VerticalAlignment"/>
+        <Grid HorizontalAlignment="Left" Margin="861,34,0,0" Width="130" Height="88" VerticalAlignment="Top">
+            <RadioButton x:Name="LowSpeedBaud" Content="115200 Baud" HorizontalAlignment="Left" Height="34" Margin="10,10,0,0" VerticalAlignment="Top" Width="73" GroupName="Baud" IsChecked="True"/>
+            <RadioButton x:Name="HighSpeedBaud" Content="806400 Baud" HorizontalAlignment="Left" Height="34" Margin="10,38,0,0" VerticalAlignment="Top" Width="73" GroupName="Baud" IsChecked="True"/>
+        </Grid>
+        <Image x:Name="TopRight_Dir" Margin="254,295,0,0" PointerPressed="TopRight_Dir_press" PointerReleased="TopRight_Dir_release" Source="Assets/trU.png" PointerExited="TopRight_Dir_Exit" HorizontalAlignment="Left" Width="100" Height="100" VerticalAlignment="Top"/>
+        <Image x:Name="BottomRight_Dir" Margin="254,526,0,0" PointerPressed="BottomRight_Dir_press" PointerReleased="BottomRight_Dir_release" Source="Assets/brU.png" Height="100" VerticalAlignment="Top" PointerExited="BottomRight_Dir_Exit" HorizontalAlignment="Left" Width="100"/>
+        <Image x:Name="BottomLeft_Dir" Margin="23,526,0,0" PointerPressed="BottomLeft_Dir_press" PointerReleased="BottomLeft_Dir_release" Source="Assets/blU.png" Height="100" VerticalAlignment="Top" PointerExited="BottomLeft_Dir_Exit" HorizontalAlignment="Left" Width="100"/>
+        <Image x:Name="TopLeft_Dir" Margin="23,295,0,0" PointerPressed="TopLeft_Dir_press" PointerReleased="TopLeft_Dir_release" Source="Assets/tlU.png" PointerExited="TopLeft_Dir_Exit" HorizontalAlignment="Left" Width="100" Height="100" VerticalAlignment="Top"/>
+        <TextBox x:Name="Wheel_Diameter" HorizontalAlignment="Left" Height="20" Margin="471,308,0,0" TextWrapping="Wrap" Text="152" VerticalAlignment="Top" Width="49" Background="#FFA9F55D" d:LayoutOverrides="VerticalAlignment" TextChanged="Wheel_Diameter_TextChanged"/>
+        <TextBlock HorizontalAlignment="Left" VerticalAlignment="Top" Margin="408,300,0,0" RenderTransformOrigin="0.585,-1.95" Width="78" Height="40" TextWrapping="Wrap" d:LayoutOverrides="HorizontalAlignment, VerticalAlignment" Text="Wheel Diameter"/>
+        <TextBlock HorizontalAlignment="Left" VerticalAlignment="Top" Margin="540,320,0,0" Text="mm" TextWrapping="Wrap" Width="38" d:LayoutOverrides="VerticalAlignment"/>
+        <TextBlock x:Name="EnablepolarityLabel_Copy" HorizontalAlignment="Left" Margin="778.31,240.813,0,0" TextWrapping="Wrap" Width="70.483" RenderTransformOrigin="0.5,0.5" UseLayoutRounding="False" d:LayoutRounding="Auto" Text="Max Speed" Height="43" VerticalAlignment="Top">
+            <TextBlock.RenderTransform>
+                <CompositeTransform SkewX="2.961" TranslateX="1.448"/>
+            </TextBlock.RenderTransform>
+        </TextBlock>
+        <TextBox x:Name="max_spd" HorizontalAlignment="Left" Height="22" Margin="856,250,0,0" TextWrapping="Wrap" Text="4" Width="34" Background="#FFA9F55D" VerticalAlignment="Top" TextChanged="max_spd_TextChanged"/>
+        <TextBlock HorizontalAlignment="Left" Height="22" Margin="410,531,0,0" TextWrapping="Wrap" Text="Channel 1" VerticalAlignment="Top" Width="78"/>
+        <TextBox x:Name="Channel1" HorizontalAlignment="Left" Height="20" Margin="492,527,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="73" Background="#FFF98989"/>
+        <TextBlock HorizontalAlignment="Left" Height="22" Margin="410,572,0,0" TextWrapping="Wrap" Text="Channel 2" VerticalAlignment="Top" Width="78"/>
+        <TextBox x:Name="Channel2" HorizontalAlignment="Left" Height="20" Margin="492,568,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="73" Background="#FFF98989"/>
+        <TextBlock HorizontalAlignment="Left" Height="22" Margin="410,613,0,0" TextWrapping="Wrap" Text="Channel 3" VerticalAlignment="Top" Width="78"/>
+        <TextBox x:Name="Channel3" HorizontalAlignment="Left" Height="20" Margin="492,609,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="73" Background="#FFF98989"/>
+        <TextBlock HorizontalAlignment="Left" Height="22" Margin="595,532,0,0" TextWrapping="Wrap" Text="Channel 4" VerticalAlignment="Top" Width="78"/>
+        <TextBox x:Name="Channel4" HorizontalAlignment="Left" Height="20" Margin="677,528,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="73" Background="#FFF98989"/>
+        <TextBlock HorizontalAlignment="Left" Height="22" Margin="595,572,0,0" TextWrapping="Wrap" Text="Channel 5" VerticalAlignment="Top" Width="78"/>
+        <TextBox x:Name="Channel5" HorizontalAlignment="Left" Height="20" Margin="677,568,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="73" Background="#FFF98989"/>
+        <TextBlock HorizontalAlignment="Left" Height="22" Margin="595,613,0,0" TextWrapping="Wrap" Text="Channel 6" VerticalAlignment="Top" Width="78"/>
+        <TextBox x:Name="Channel6" HorizontalAlignment="Left" Height="20" Margin="677,609,0,0" TextWrapping="Wrap" Text="" VerticalAlignment="Top" Width="73" Background="#FFF98989"/>
+        <Button x:Name="ReadRC" Content="Read RC" HorizontalAlignment="Left" Height="31" Margin="492,648,0,0" VerticalAlignment="Top" Width="85" Click="ReadRC_Click"/>
+        <TextBlock x:Name="TextBlockEnumerate" HorizontalAlignment="Left" Height="22" Margin="513,446,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="338" FontSize="16" Foreground="Black" RenderTransformOrigin="0.546,0.409"/>
+        <TextBlock HorizontalAlignment="Left" Height="22" Margin="413,446,0,0" TextWrapping="Wrap" Text="Device Status:" VerticalAlignment="Top" Width="107" FontSize="16" Foreground="Black"/>
+        <Button x:Name="Refresh_USB_Devices" Content="Refresh USB Devices" HorizontalAlignment="Left" Height="34" Margin="410,476,0,0" VerticalAlignment="Top" Width="175" Click="Refresh_USB_Devices_Click"/>
+        <Button x:Name="E_eyes" Content="Enable Eyes" HorizontalAlignment="Left" Margin="870,102,0,0" VerticalAlignment="Top" Width="141" Click="E_eyes_Click"/>
+        <TextBlock x:Name="EnablepolarityLabel_Copy1" HorizontalAlignment="Left" Margin="778.31,285.813,0,0" TextWrapping="Wrap" Width="70.483" RenderTransformOrigin="0.5,0.5" UseLayoutRounding="False" d:LayoutRounding="Auto" Text="Min Speed" Height="43" VerticalAlignment="Top">
+            <TextBlock.RenderTransform>
+                <CompositeTransform SkewX="2.961" TranslateX="1.448"/>
+            </TextBlock.RenderTransform>
+        </TextBlock>
+        <TextBox x:Name="min_spd" HorizontalAlignment="Left" Height="22" Margin="856,295,0,0" TextWrapping="Wrap" Text="0" Width="34" Background="#FFA9F55D" VerticalAlignment="Top" TextChanged="min_spd_TextChanged"/>
+        <TextBlock x:Name="EnablepolarityLabel_Copy2" HorizontalAlignment="Left" Margin="778.31,329.146,0,0" TextWrapping="Wrap" Width="70.483" RenderTransformOrigin="0.5,0.5" UseLayoutRounding="False" d:LayoutRounding="Auto" Text="Total Increment" Height="43" VerticalAlignment="Top">
+            <TextBlock.RenderTransform>
+                <CompositeTransform SkewX="2.961" TranslateX="1.448"/>
+            </TextBlock.RenderTransform>
+        </TextBlock>
+        <TextBox x:Name="increment_tx" HorizontalAlignment="Left" Height="22" Margin="856,338,0,0" TextWrapping="Wrap" Text="15" Width="34" Background="#FFA9F55D" VerticalAlignment="Top" TextChanged="increment_tx_TextChanged"/>
+        <Button x:Name="ToggleEnableLimits" Content="Disable/Enable&#xA;Limits" HorizontalAlignment="Left" Height="51" Margin="861,584,0,0" VerticalAlignment="Top" Width="123" Background="#9996F50D" Click="ToggleEnableLimits_Click" IsEnabled="False"/>
+       <Button x:Name="MaxSpd_Inc" Content="+" HorizontalAlignment="Left" Margin="925,250,0,0" VerticalAlignment="Top" Width="46" FontSize="18" FontWeight="Black" Height="32" Click="MaxSpd_Inc_Click"/>
+        <Button x:Name="MaxSpd_Dec" Content="-" HorizontalAlignment="Left" Margin="976,250,0,0" VerticalAlignment="Top" Width="46" FontSize="18" FontWeight="Black" Height="32" Click="MaxSpd_Dec_Click"/>
+        <Button x:Name="MinSpd_Inc" Content="+" HorizontalAlignment="Left" Margin="925,295,0,0" VerticalAlignment="Top" Width="46" FontSize="18" FontWeight="Black" Height="32" Click="MinSpd_Inc_Click"/>
+        <Button x:Name="MinSpd_Dec" Content="-" HorizontalAlignment="Left" Margin="976,295,0,0" VerticalAlignment="Top" Width="46" FontSize="18" FontWeight="Black" Height="32" Click="MinSpd_Dec_Click"/>
+        <CheckBox x:Name="Manual_Check" Content="Manual" HorizontalAlignment="Left" Margin="925,339,-21,0" VerticalAlignment="Top" IsChecked="True"/>
+        <Rectangle x:Name="eyeBG" Fill="White" HorizontalAlignment="Left" Height="768" Stroke="Black" VerticalAlignment="Top" Width="1024" PointerPressed="eyeBG_PointerPressed" Visibility="Collapsed"/>
+        <Image x:Name="Img_eyes_Placeholder" HorizontalAlignment="Left" Height="628" Margin="0,110,0,0" VerticalAlignment="Top" Width="1024" Source="Assets/C.png" PointerPressed="Img_eyes_PointerPressed" Visibility="Collapsed"/>
+        <Image x:Name="Img_eyes" HorizontalAlignment="Left" Height="628" Margin="0,110,0,0" VerticalAlignment="Top" Width="1024" Source="Assets/C.png" PointerPressed="Img_eyes_PointerPressed" Visibility="Collapsed" ImageOpened="Img_eyes_ImageOpened"/>
+
+
+
+
+    </Grid>
+</Page>

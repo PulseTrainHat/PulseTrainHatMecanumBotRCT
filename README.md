@@ -5,6 +5,8 @@ Pulse Train Hat for the Raspberry Pi
 
 Examples for the PTHAT http://www.pthat.com
 
+![alt tag](http://pthat.com/mecanumwithxbox.png)
+
 Raspberry Pi running Windows 10 IOT Universal Application C#
 
 Direct link to example https://www.hackster.io/cnc-design/adding-rc-transmitter-receiver-to-control-mecanum-bot-4b9e1b

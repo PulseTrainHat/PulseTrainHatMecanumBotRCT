@@ -5,7 +5,7 @@ Pulse Train Hat for the Raspberry Pi
 
 Examples for the PTHAT http://www.pthat.com
 
-![alt tag](http://pthat.com/mecanumwithxbox.png)
+![alt tag](http://pthat.com/Mecanum-RC-feature.png)
 
 Raspberry Pi running Windows 10 IOT Universal Application C#
 
